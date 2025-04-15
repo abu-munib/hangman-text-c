@@ -39,7 +39,7 @@ int main() {
 	}
 	printf("\n");
 
-	while (trial > 0 && stats != 1) {
+	while (trial > 0 && stats == 0) {
 
 		printf("========================\n");
 		for (int i = 0; i < word_len; i++) {
@@ -53,14 +53,36 @@ int main() {
 		scanf(" %c", &user_input);
 
 		// find character in the word
+		int found = 0;
 		for (int i = 0; i < word_len; i++) {
 			if (user_input == word[i]) {
 				word_box[i] = word[i];
+				found = 1;
 			} else {
 				continue;
 			}
 		}
+		if (found == 0) {
+			trial -= 1;
+		}
+		for (int i = 0; i < word_len; i++) {
+			if (word_box[i] == '_') {
+				stats = 0;
+				break;
+			} else {
+				stats = 1;
+			}
+		}
 	}
+
+	if (trial <= 0) {
+		printf("You've lost\n");
+	}
+	if (stats == 1) {
+		printf("You've won\n");
+	}
+
+	printf("The word is: %s\n", word);
 	
 	return 0;
 }
